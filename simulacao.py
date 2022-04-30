@@ -13,7 +13,9 @@ while 1 :
     entrada = input()
     print('gain')
     gain=input()
-
     valor_do_stop = entrada-(entrada/1000)
+
+#    if(maior_que_preco_atual(entrada=entrada,pari=par)):
+
 
  
