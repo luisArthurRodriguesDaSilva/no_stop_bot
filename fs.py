@@ -1,14 +1,8 @@
 from operator import truediv
 import time
-from numpy import quantile
+from numpy import quantile, short
 from chaves import *
-import binance
 import json
-
-secret_key=chavess["secretKey"]
-api_key=chavess['apiKey']
-
-bot = binance.Client(api_key,secret_key)
 
 def verificar_posição(par):
     for posicao in bot.futures_position_information():
@@ -49,17 +43,29 @@ def sustentar_ordem():
 
 def maior_que_preco_atual(pari,entrada):
     par=pari.upper()
-    resposta = False
     for inf in bot.get_all_tickers():
-        
-        if (inf['symbol']==par):
-            if (inf['price']< entrada):
+
+       if (inf['symbol']==par):
+            valor=inf['price']
+            valor=int(float(valor))
+            print(f"valor={valor}")
+            if (valor < entrada):
                 print(inf)
                 resposta=True
             else:
                 print(inf)
+                resposta=False
     return resposta
-        
+
+    
+def verificar_a_possibilidade(tipo,par,entrada):
+    if (tipo =='long') :
+        print("em long")
+        return(maior_que_preco_atual(pari=par,entrada=entrada))
+    elif (tipo == 'short'):
+        print("em short")
+        return(maior_que_preco_atual(pari=par,entrada=entrada)==False)
+
     
 
 if __name__ == "__main__":
