@@ -4,6 +4,12 @@ from numpy import quantile, short
 from chaves import *
 import json
 
+def remover_espaco(word1):
+    word2 = ' '
+    for i in word2:
+        word1 = word1.replace(i, '')
+    return(str(word1))
+
 def verificar_posição(par):
     for posicao in bot.futures_position_information():
         if(posicao['symbol'] ==f'{par.upper()}'):
@@ -13,7 +19,7 @@ def verificar_posição(par):
                 return False
 
 def lancar_ordem(par,price,margem,tipo):
-  if(tipo=='long'):
+  if(tipo == 'long'):
     print(par.upper())
     bot.futures_create_order(           symbol=par.upper(),
                                         side=bot.SIDE_BUY,
@@ -46,10 +52,10 @@ def maior_que_preco_atual(pari,entrada):
     for inf in bot.get_all_tickers():
 
        if (inf['symbol']==par):
-            valor=inf['price']
-            valor=int(float(valor))
-            print(f"valor={valor}")
-            if (valor < entrada):
+            valor=int(float(str(inf['price'])))
+            
+            print(f"valor={valor}aaaaa{type(valor)}")
+            if (valor < int(entrada)):
                 print(inf)
                 resposta=True
             else:

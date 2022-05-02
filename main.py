@@ -10,20 +10,10 @@ from chaves import *
 import json
 import fs
 
-print("par:")
-par=input()
-print('tipo')
-tipo=input()
-print('valor de entrada:')
-entrada = input()
-print('quantidade')
-quantidade=input()
-print('gain')
-gain=input()
 
 while 1:
     entrada=input()
-    if fs.verificar_a_possibilidade(tipo=tipo,par=par,entrada=entrada):
-        print("passou")
+    if fs.verificar_a_possibilidade(tipo='long',par='btcusdt',entrada=entrada):
+        print("ta maior")
     else:
-        print('n passou')
+        print('ta menor')
