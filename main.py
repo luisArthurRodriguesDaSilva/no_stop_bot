@@ -10,10 +10,21 @@ from chaves import *
 import json
 import fs
 
+print("par:")
+par=input()
+#print('tipo')
+#tipo=input()
+print('valor de entrada:')
+entrada = input()
+print('mangem')
+margem=input()
+#print('gain')
+#gain=input()
 
-while 1:
-    entrada=input()
-    if fs.verificar_a_possibilidade(tipo='long',par='btcusdt',entrada=entrada):
-        print("ta maior")
-    else:
-        print('ta menor')
+
+
+if fs.verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
+    
+    fs.lancar_ordem(par=par,price=entrada,margem=margem,tipo='long')
+else:
+    print("ja passou")
