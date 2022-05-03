@@ -1,30 +1,32 @@
-from re import T
-from symtable import Symbol
-from textwrap import indent
-import time
-from tracemalloc import stop
-
-from numpy import quantile
-from regex import W
+from traceback import print_tb
 from chaves import *
 import json
-import fs
+from fs import *
 
 print("par:")
 par=input()
 #print('tipo')
 #tipo=input()
 print('valor de entrada:')
-entrada = input()
-print('mangem')
-margem=input()
+entrada = float(input())
+print('mangem(usdt)')
+margem=((float(input()))/entrada)
 #print('gain')
 #gain=input()
 
 
 
-if fs.verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
+if verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
     
-    fs.lancar_ordem(par=par,price=entrada,margem=margem,tipo='long')
+    lancar_ordem(par=par,price=entrada,margem=margem,tipo='long')
+
+    while(1):
+
+        while(verificar_a_possibilidade(tipo='long',par=par,entrada=entrada)):
+            time.sleep(2)                                         #ficar rodando até a ordem ser executada
+
+        print('ordem executada')
+                                                
+
 else:
     print("ja passou")

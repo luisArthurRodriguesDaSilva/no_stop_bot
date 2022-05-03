@@ -1,8 +1,6 @@
-from operator import truediv
-import time
-from numpy import quantile, short
 from chaves import *
 import json
+import time
 
 def remover_espaco(word1):
     word2 = ' '
@@ -30,7 +28,7 @@ def lancar_ordem(par,price,margem,tipo):
                                         priceProtect=False,
                                         closePosition=False,
                                         quantity=margem)
-  else:
+  elif tipo=='short':
       bot.futures_create_order(           symbol=par.upper(),
                                         side=bot.SIDE_SELL,
                                         type="STOP_MARKET",
@@ -40,6 +38,7 @@ def lancar_ordem(par,price,margem,tipo):
                                         priceProtect=False,
                                         closePosition=False,
                                         quantity=margem)
+  print('-----------------lançou uma--------------------')
 
 def sustentar_ordem():
     while (1):
@@ -52,10 +51,10 @@ def maior_que_preco_atual(pari,entrada):
     for inf in bot.get_all_tickers():
 
        if (inf['symbol']==par):
-            valor=int(float(str(inf['price'])))
-            
+            valor=float(str(inf['price']))
+        
             print(f"valor={valor}aaaaa{type(valor)}")
-            if (valor < int(entrada)):
+            if (valor < float(entrada)):
                 print(inf)
                 resposta=True
             else:
