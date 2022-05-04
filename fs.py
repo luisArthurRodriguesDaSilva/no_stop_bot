@@ -40,6 +40,19 @@ def lancar_ordem(par,price,margem,tipo):
                                         quantity=margem)
   print('-----------------lançou uma--------------------')
 
+def lancar_ordem_stop(margem,par,price):#tipo):
+    bot.futures_create_order(
+        symbol=par.upper(),
+        side=bot.SIDE_SELL,
+        type="STOP_MARKET",
+        stopPrice=price,
+        reduceOnly=True,
+        workingType='CONTRACT_PRICE',
+        priceProtect=True,
+        closePosition=True,
+        quantity=margem
+                                        )
+
 def sustentar_ordem():
     while (1):
         time.sleep(3)
