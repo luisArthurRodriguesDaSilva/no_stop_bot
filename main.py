@@ -12,21 +12,21 @@ print('valor de entrada:')
 entrada = float(input())
 print('mangem(usdt)')
 margem=((float(input()))/entrada)
-margem=margem-(margem%0.001)
+margem=margem-(margem%1)
 #print('gain')
 #gain=input()
-stop=entrada*0.999
+stop=entrada-0.01
 
 
 
 if verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
     
-    lancar_ordem(par=par,price=entrada,margem=margem,tipo=tipo)
-
     while(1):
 
+        lancar_ordem(par=par,price=entrada,margem=margem,tipo=tipo)
+
         while(verificar_a_possibilidade(tipo='long',par=par,entrada=entrada)):
-            time.sleep(5)                                         #ficar rodando até a ordem ser executada
+            time.sleep(1)                                         #ficar rodando até a ordem ser executada
 
         print('ordem executada')
         lancar_ordem_stop(margem=margem,par=par,price=stop)

@@ -46,7 +46,6 @@ def lancar_ordem_stop(margem,par,price):#tipo):
         side=bot.SIDE_SELL,
         type="STOP_MARKET",
         stopPrice=price,
-        reduceOnly=True,
         workingType='CONTRACT_PRICE',
         priceProtect=True,
         closePosition=True,
@@ -61,10 +60,10 @@ def sustentar_ordem():
 
 def maior_que_preco_atual(pari,entrada):
     par=pari.upper()
-    for inf in bot.get_all_tickers():
+    for inf in bot.futures_mark_price():
 
        if (inf['symbol']==par):
-            valor=float(str(inf['price']))
+            valor=float(str(inf['markPrice']))
         
             print(f"valor={valor}aaaaa{type(valor)}")
             if (valor < float(entrada)):
