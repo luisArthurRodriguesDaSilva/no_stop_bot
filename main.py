@@ -26,7 +26,7 @@ if verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
         lancar_ordem(par=par,price=entrada,margem=margem,tipo=tipo)
 
         while(verificar_a_possibilidade(tipo='long',par=par,entrada=entrada)):
-            time.sleep(1)                                         #ficar rodando até a ordem ser executada
+            time.sleep(0.5)                                         #ficar rodando até a ordem ser executada
 
         print('ordem executada')
         lancar_ordem_stop(margem=margem,par=par,price=stop)
