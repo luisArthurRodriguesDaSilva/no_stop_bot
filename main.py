@@ -18,7 +18,6 @@ margem=margem-(margem%0.01)
 stop=entrada-0.01
 
 
-tempo_de_espera=0.1+(module((preco_atual(par=par)-entrada)/entrada))
 if verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
     
     while(1):
@@ -26,6 +25,7 @@ if verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
 
         while(verificar_a_possibilidade(tipo='long',par=par,entrada=entrada) and verificar_posição==False):
             
+            tempo_de_espera=0.1+(module((preco_atual(par=par)-entrada)/entrada))
             print(f"tempo:{tempo_de_espera()}")
             time.sleep(1)                                         #ficar rodando até a ordem ser executada
 
