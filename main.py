@@ -18,7 +18,7 @@ margem=margem-(margem%0.01)
 stop=entrada-0.01
 
 
-tempo_de_espera=lambda : 0.1+(module((preco_atual(par=par)-entrada)/entrada))
+tempo_de_espera=0.1+(module((preco_atual(par=par)-entrada)/entrada))
 if verificar_a_possibilidade(tipo='long',par=par,entrada=entrada):
     
     while(1):
