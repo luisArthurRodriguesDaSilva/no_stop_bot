@@ -51,12 +51,23 @@ def lancar_ordem_stop(margem,par,price):#tipo):
         closePosition=True,
         quantity=margem
                                         )
+    print("lançou stop")
 
 def sustentar_ordem():
     while (1):
         time.sleep(3)
         if (verificar_posição()) :
             lancar_ordem()
+def module(x):
+    if(x<0):
+        x=-x
+    return x
+def preco_atual(par):
+    valor=1
+    for inf in bot.futures_mark_price():
+        if (inf['symbol']==par):
+            valor=float(str(inf['markPrice']))
+    return valor
 
 def maior_que_preco_atual(pari,entrada):
     par=pari.upper()
