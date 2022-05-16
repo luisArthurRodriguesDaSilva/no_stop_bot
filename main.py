@@ -12,7 +12,7 @@ print('valor de entrada:')
 entrada = float(input())
 print('mangem(usdt)')
 margem=((float(input()))/entrada)
-miudo=0.01
+miudo=0.001
 margem=margem-(margem%miudo)
 #print('gain')
 #gain=input() 
@@ -23,16 +23,19 @@ else:
 
 if verificar_a_possibilidade(tipo=tipo,par=par,entrada=entrada):
     while(1):
-        lancar_ordem(par=par,price=entrada,margem=margem,tipo=tipo)
+        try:
+          lancar_ordem(par=par,price=entrada,margem=margem,tipo=tipo)
+        except:
+          ordem_de_emergencia(margem=margem,par=par,miudo=miudo,tipo=tipo)
         while(verificar_a_possibilidade(tipo=tipo,par=par,entrada=entrada) and verificar_posição(par=par)==False):
             #tempo_de_espera=0.1+(modulo((preco_atual(par=par)-entrada)/entrada))
             #print(f"tempo:{tempo_de_espera()}")
             time.sleep(1)                                         #ficar rodando até a ordem ser executada
         print('ordem executada')
-        #try:
-        lancar_ordem_stop(margem=margem,par=par,price=stop,tipo=tipo)
-        #except:
-        #  stop_de_emergencia(margem=margem,par=par,miudo=miudo,tipo=tipo)
+        try:
+          lancar_ordem_stop(margem=margem,par=par,price=stop,tipo=tipo)
+        except:
+          stop_de_emergencia(margem=margem,par=par,miudo=miudo,tipo=tipo)
           
         print('stop lançada')
         while(verificar_posição(par=par)): 

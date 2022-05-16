@@ -3,37 +3,50 @@ from chaves import *
 import json
 import time
 
-#def stop_de_emergencia(margem,par,miudo,tipo):
-# for inf in bot.futures_mark_price():
-#
-#   if (inf['symbol']==par):
-#        preco_atual=float(str(inf['markPrice']))
-#
-# if(tipo == 'long'):
-#   variante=bot.SIDE_SELL
-#   sinal = "-"
-# elif(tipo=='short'):
-#   variante=bot.SIDE_BUY
-#   sinal = "+"
-#
-# while(1):
-#   try:
-#
-#     time.sleep(0.2)
-#     bot.futures_create_order(
-#       symbol=par.upper(),
-#       side=variante,
-#       type="STOP_MARKET",
-#       stopPrice=eval(f"{preco_atual} {sinal} {miudo}"),
-#       workingType='CONTRACT_PRICE',
-#       priceProtect=True,
-#       closePosition=True,
-#       quantity=margem
-#     )
-#     break
-#   except:
-#     stop_de_emergencia(margem=margem,par=par,miudo=miudo,tipo=tipo)
-# print("lançou stop de emrgncia")
+def stop_de_emergencia(margem,par,miudo,tipo):
+    for inf in bot.futures_mark_price():
+   
+        if (inf['symbol']==par):
+            preco_atual=float(str(inf['markPrice']))
+   
+    if(tipo == 'long'):
+        variante=bot.SIDE_SELL
+    elif(tipo=='short'):
+        variante=bot.SIDE_BUY
+   
+    time.sleep(0.2)
+    bot.futures_create_order(
+        symbol=par.upper(),
+        side=variante,
+        type="MARKET",
+        workingType='CONTRACT_PRICE',
+        priceProtect=True,
+        closePosition=False,
+        quantity=margem
+    )
+    print("________________passei pelo stop de emergencia____________________________")
+def ordem_de_emergencia(margem,par,miudo,tipo):
+    for inf in bot.futures_mark_price():
+   
+        if (inf['symbol']==par):
+            preco_atual=float(str(inf['markPrice']))
+   
+    if(tipo == 'long'):
+        variante=bot.SIDE_BUY
+    elif(tipo=='short'):
+        variante=bot.SIDE_SELL
+   
+    time.sleep(0.2)
+    bot.futures_create_order(
+        symbol=par.upper(),
+        side=variante,
+        type="MARKET",
+        workingType='CONTRACT_PRICE',
+        priceProtect=False,
+        closePosition=False,
+        quantity=margem
+    )
+    print("________________passei pela ordem de emergencia____________________________")
 
 def remover_espaco(word1):
     word2 = ' '
