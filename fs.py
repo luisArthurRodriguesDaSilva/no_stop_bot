@@ -1,6 +1,39 @@
 from chaves import *
+
 import json
 import time
+
+#def stop_de_emergencia(margem,par,miudo,tipo):
+# for inf in bot.futures_mark_price():
+#
+#   if (inf['symbol']==par):
+#        preco_atual=float(str(inf['markPrice']))
+#
+# if(tipo == 'long'):
+#   variante=bot.SIDE_SELL
+#   sinal = "-"
+# elif(tipo=='short'):
+#   variante=bot.SIDE_BUY
+#   sinal = "+"
+#
+# while(1):
+#   try:
+#
+#     time.sleep(0.2)
+#     bot.futures_create_order(
+#       symbol=par.upper(),
+#       side=variante,
+#       type="STOP_MARKET",
+#       stopPrice=eval(f"{preco_atual} {sinal} {miudo}"),
+#       workingType='CONTRACT_PRICE',
+#       priceProtect=True,
+#       closePosition=True,
+#       quantity=margem
+#     )
+#     break
+#   except:
+#     stop_de_emergencia(margem=margem,par=par,miudo=miudo,tipo=tipo)
+# print("lançou stop de emrgncia")
 
 def remover_espaco(word1):
     word2 = ' '
@@ -17,10 +50,13 @@ def verificar_posição(par):
                 return False
 
 def lancar_ordem(par,price,margem,tipo):
-  if(tipo == 'long'):
+    if(tipo == 'long'):
+        variante=bot.SIDE_BUY
+    elif(tipo=='short'):
+        variante=bot.SIDE_SELL
     print(par.upper())
     bot.futures_create_order(           symbol=par.upper(),
-                                        side=bot.SIDE_BUY,
+                                        side=variante,
                                         type="STOP_MARKET",
                                         stopPrice=price,
                                         reduceOnly=False,
@@ -28,22 +64,17 @@ def lancar_ordem(par,price,margem,tipo):
                                         priceProtect=False,
                                         closePosition=False,
                                         quantity=margem)
-  elif tipo=='short':
-      bot.futures_create_order(           symbol=par.upper(),
-                                        side=bot.SIDE_SELL,
-                                        type="STOP_MARKET",
-                                        stopPrice=price,
-                                        reduceOnly=False,
-                                        workingType='CONTRACT_PRICE',
-                                        priceProtect=False,
-                                        closePosition=False,
-                                        quantity=margem)
-  print('-----------------lançou uma--------------------')
 
-def lancar_ordem_stop(margem,par,price):#tipo):
+    print('-----------------lançou uma--------------------')
+
+def lancar_ordem_stop(margem,par,price,tipo):
+    if(tipo == 'long'):
+        variante=bot.SIDE_SELL
+    elif(tipo=='short'):
+        variante=bot.SIDE_BUY
     bot.futures_create_order(
         symbol=par.upper(),
-        side=bot.SIDE_SELL,
+        side=variante,
         type="STOP_MARKET",
         stopPrice=price,
         workingType='CONTRACT_PRICE',
@@ -53,15 +84,11 @@ def lancar_ordem_stop(margem,par,price):#tipo):
                                         )
     print("lançou stop")
 
-def sustentar_ordem():
-    while (1):
-        time.sleep(3)
-        if (verificar_posição()) :
-            lancar_ordem()
-def module(x):
+def modulo(x): 
     if(x<0):
         x=-x
     return x
+
 def preco_atual(par):
     valor=1
     for inf in bot.futures_mark_price():
@@ -88,22 +115,11 @@ def maior_que_preco_atual(pari,entrada):
     
 def verificar_a_possibilidade(tipo,par,entrada):
     if (tipo =='long') :
-        print("em long")
+        #print("em long")
         return(maior_que_preco_atual(pari=par,entrada=entrada))
     elif (tipo == 'short'):
-        print("em short")
+        #print("em short")
         return(maior_que_preco_atual(pari=par,entrada=entrada)==False)
 
     
 
-if __name__ == "__main__":
-    print("par:")
-    par=input()
-    print('tipo')
-    tipo=input()
-    print('valor de entrada:')
-    entrada = input()
-    print('quantidade')
-    quantidade=input()
-    lancar_ordem(par=par,price=entrada,margem=quantidade,tipo=tipo)
-    print('lançada')
